@@ -17,7 +17,7 @@ routers:
         minRetriesPerSec: 0
 #        percentCanRetry: 1 # every failure is retried once
 #        percentCanRetry: 10.5 # every 2 failure retries one
-        percentCanRetry: 2 # every failure is retried once
+        percentCanRetry: 2 # every failure is retried twice
       backoff:
         kind: constant
         ms: 300
