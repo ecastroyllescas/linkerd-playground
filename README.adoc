@@ -1,0 +1,35 @@
+= Linkerd microservices
+
+
+== Linkerd proxy on docker
+
+----
+cd docker
+docker-compose up
+----
+
+----
+http_proxy=http://localhost:4140/ curl http://foo #must fail
+curl http://localhost:4140/ -H "Host: foo" #must fail
+
+http_proxy=http://localhost:4140/ curl http://python #must hit
+curl http://localhost:4140/ -H "Host: python" #must hit
+----
+
+== On Kubernetes
+
+----
+gcloud container clusters create l-cluster --num-nodes 1 --machine-type n1-standard-2
+kubectl config set-context $(kubectl config current-context) --namespace=default
+kubectl create clusterrolebinding get-endpoints --clusterrole=cluster-admin --serviceaccount=default:default
+
+kubectl apply -f k8s/linkerd.yml
+kubectl apply -f k8s/msa-linkerd.yml
+sleep 30s
+L5D_INGRESS_LB=$(kubectl get svc l5d -o jsonpath="{.status.loadBalancer.ingress[0].*}")
+echo http://$L5D_INGRESS_LB:9990
+xdg-open http://$L5D_INGRESS_LB:9990 # on ubuntu
+http_proxy=$L5D_INGRESS_LB:4140 curl -i http://books/books
+...
+gcloud container clusters delete l-cluster
+----
