@@ -12,6 +12,7 @@ routers:
   service:
     responseClassifier:
       kind: io.l5d.http.retryableRead5XX
+    totalTimeoutMs: 300
     retries:
       budget:
         minRetriesPerSec: 0
@@ -20,4 +21,4 @@ routers:
         percentCanRetry: 2 # every failure is retried twice
       backoff:
         kind: constant
-        ms: 300
+        ms: 5000
