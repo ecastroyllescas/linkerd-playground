@@ -4,8 +4,20 @@ admin:
 
 routers:
 - protocol: http
-  dtab: /svc/python => /$/inet/python/8080;
+  dtab: /svc/nginx => /$/inet/nginx/8080;
   servers:
   - port: 4140
     ip: 0.0.0.0
   httpAccessLog: access.log
+  service:
+    responseClassifier:
+      kind: io.l5d.http.retryableRead5XX
+    retries:
+      budget:
+        minRetriesPerSec: 0
+#        percentCanRetry: 1 # every failure is retried once
+#        percentCanRetry: 10.5 # every 2 failure retries one
+        percentCanRetry: 2 # every failure is retried once
+      backoff:
+        kind: constant
+        ms: 300
