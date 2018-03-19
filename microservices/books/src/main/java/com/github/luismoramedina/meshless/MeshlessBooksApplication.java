@@ -34,7 +34,6 @@ public class MeshlessBooksApplication {
 		SpringApplication.run(MeshlessBooksApplication.class, args);
 	}
 
-	/*
     @Bean
     public RestTemplate restTemplate() {
         String proxyHost = System.getenv("HTTP_PROXY");
@@ -55,12 +54,7 @@ public class MeshlessBooksApplication {
         log.info("NO PROXY");
         return new RestTemplate();
     }
-    */
 
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
 
    @RequestMapping(method = RequestMethod.GET)
    public List<Book> books(
