@@ -12,8 +12,8 @@ docker-compose up
 http_proxy=http://localhost:4140/ curl http://foo #must fail
 curl http://localhost:4140/ -H "Host: foo" #must fail
 
-http_proxy=http://localhost:4140/ curl http://python #must hit
-curl http://localhost:4140/ -H "Host: python" #must hit
+http_proxy=http://localhost:4140/ curl http://nginx #must hit
+curl http://localhost:4140/ -H "Host: nginx" #must hit
 ----
 
 == On Kubernetes
