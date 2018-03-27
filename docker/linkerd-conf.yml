@@ -22,3 +22,5 @@ routers:
         kind: constant
         # wait 15s after reinserting in the pool
         ms: 5000
+telemetry:
+- kind: io.l5d.prometheus

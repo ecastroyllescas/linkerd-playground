@@ -32,7 +32,7 @@ services:
     links:
     - httpbin
 
-  # nginx server
+  # nginx server2
   nginx2:
     image: nginx
     container_name: nginx2
@@ -41,3 +41,15 @@ services:
     links:
     - httpbin
 
+  prometheus:
+    image: prom/prometheus:v1.1.1
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yml:/prometheus/prometheus.yml:ro
+    command: >
+      -config.file=/prometheus/prometheus.yml
+      -storage.local.retention=12h
+    ports:
+    - "9090:9090"
+    links:
+    - linkerd
