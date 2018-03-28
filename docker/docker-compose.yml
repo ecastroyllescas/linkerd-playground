@@ -53,3 +53,10 @@ services:
     - "9090:9090"
     links:
     - linkerd
+
+  zipkin:
+    image: openzipkin/zipkin:1.20
+    environment:
+    - SCRIBE_ENABLED=true
+    ports:
+      - 9411:9411

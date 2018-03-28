@@ -24,3 +24,7 @@ routers:
         ms: 5000
 telemetry:
 - kind: io.l5d.prometheus
+- kind: io.l5d.zipkin
+  host: zipkin
+  port: 9410
+  sampleRate: 1.0
