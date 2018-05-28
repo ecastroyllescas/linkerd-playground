@@ -16,21 +16,12 @@ services:
     - nginx
     - nginx2
 
-  # python server
-  httpbin:
-    image: citizenstig/httpbin
-    container_name: httpbin
-    ports:
-    - "8000:8000"
-
   # nginx server
   nginx:
     image: nginx
     container_name: nginx
     volumes:
       - ${PWD}/nginx.conf:/etc/nginx/conf.d/default.conf:ro
-    links:
-    - httpbin
 
   # nginx server2
   nginx2:
@@ -38,8 +29,6 @@ services:
     container_name: nginx2
     volumes:
       - ${PWD}/nginx.conf:/etc/nginx/conf.d/default.conf:ro
-    links:
-    - httpbin
 
   prometheus:
     image: prom/prometheus:v1.1.1
@@ -49,17 +38,12 @@ services:
     command: >
       -config.file=/prometheus/prometheus.yml
       -storage.local.retention=12h
+#      -web.console.templates=/usr/share/prometheus/consoles
+#      -web.console.libraries=/usr/share/prometheus/console_libraries
     ports:
     - "9090:9090"
     links:
     - linkerd
-
-  zipkin:
-    image: openzipkin/zipkin:1.20
-    environment:
-    - SCRIBE_ENABLED=true
-    ports:
-      - 9411:9411
 
   grafana:
     image: grafana/grafana:3.1.0
@@ -70,3 +54,10 @@ services:
       - 3000:3000
     links:
     - prometheus
+
+  zipkin:
+    image: openzipkin/zipkin:1.20
+    environment:
+    - SCRIBE_ENABLED=true
+    ports:
+      - 9411:9411
