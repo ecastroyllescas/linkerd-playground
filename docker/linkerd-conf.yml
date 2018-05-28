@@ -21,8 +21,10 @@ routers:
       backoff:
         kind: constant
         # wait 15s after reinserting in the pool
-        ms: 5000
+        ms: 15000
 telemetry:
+- kind: io.l5d.recentRequests
+  sampleRate: 1.0
 - kind: io.l5d.prometheus
 - kind: io.l5d.zipkin
   host: zipkin
