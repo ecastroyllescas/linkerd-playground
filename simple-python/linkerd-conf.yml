@@ -1,0 +1,14 @@
+admin:
+  port: 9990
+  ip: 0.0.0.0
+ 
+routers:
+- protocol: http
+  dtab:
+#    /svc/* => /$/inet/python/8080;
+    /svc/python => /$/inet/python/8080;
+    /svc/foo => /$/inet/python/8080;
+  servers:
+  - port: 4140
+    ip: 0.0.0.0
+  httpAccessLog: access.log

@@ -1,0 +1,24 @@
+version: "3"
+services:
+  # proxy
+  linkerd:
+    container_name: linkerd
+    image: buoyantio/linkerd:1.3.6
+    volumes:
+      - ${PWD}/linkerd-conf.yml:/io.buoyant/linkerd/1.3.6/linkerd-conf.yml
+    entrypoint: ./bundle-exec linkerd-conf.yml
+    ports:
+    - "4140:4140"
+    - "9990:9990"
+    links:
+    - python
+ 
+ 
+  # python server
+  python:
+    image: python
+    volumes:
+      - ${PWD}/index.html:/index.html
+    entrypoint: python2 -m SimpleHTTPServer 8080
+    ports:
+    - "8080:8080"
